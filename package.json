@@ -1,0 +1,32 @@
+{
+  "name": "hehe",
+  "version": "1.0.0",
+  "description": "Learning how to use NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dothenghia/nodejs_demo.git"
+  },
+  "keywords": [
+    "thenghia",
+    "nghia80",
+    "nghia",
+    "nodejs"
+  ],
+  "author": "Biscuit 80",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dothenghia/nodejs_demo/issues"
+  },
+  "homepage": "https://github.com/dothenghia/nodejs_demo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
