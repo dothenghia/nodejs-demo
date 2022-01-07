@@ -1,0 +1,104 @@
+<div class="mt-4">
+    <a href="/me/stored/games" class="btn btn-outline-primary btn-sm" role="button"> <-- Back to manage games</a>
+    <h3 class="mt-4">Deleted game</h3>
+
+    <table class="table table-light mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Price</th>
+                <th scope="col">Deleted Date</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each games}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td>
+                    <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Restore</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-game-modal">Delete permanently</a>
+                </td>
+            </tr>
+
+
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    Empty
+                    <a href="/me/stored/games"><-- Back to manage games</a>
+                </td>
+            </tr>
+            {{/each}}
+        
+        </tbody>
+    </table>
+</div>
+
+
+{{!-- CONFIRM DELETE MODAL --}}
+<div class="modal fade" id="delete-game-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete permanently</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            You will permanently delete this game ?
+        </div>
+        <div class="modal-footer">
+            <button id="btn-delete-game" type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name="delete-game-form" method="POST"></form>
+<form name="restore-game-form" method="POST"></form>
+
+
+
+
+{{!-- Delete game --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var gameId;
+        var deleteForm = document.forms['delete-game-form'];
+        var restoreForm = document.forms['restore-game-form'];
+        var btnDeleteGame = document.getElementById('btn-delete-game');
+        var btnRestoreGame = $('.btn-restore');
+
+        //When dialog confirm clicked
+        $('#delete-game-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            gameId = button.data('id');
+        })
+
+        btnDeleteGame.onclick = function() {
+            deleteForm.action = '/games/' + gameId + '/force?_method=DELETE';
+            deleteForm.submit();
+        }
+
+        btnRestoreGame.click(function(e) {
+            e.preventDefault();
+            var gameIdRestore = $(this).data('id');
+            restoreForm.action = '/games/' + gameIdRestore + '/restore?_method=PATCH';
+            restoreForm.submit();
+        });
+
+
+    })
+
+
+</script>

@@ -1,1 +1,41 @@
-<h1>DATA FROM HOME.HANDLEBARSS</h1>
+<style>
+    .card-game-item {
+        margin-top: 16px;
+    }
+
+    .card-text {
+        line-height: 16px;
+        height: 32px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        text-align: justify;
+    }
+</style>
+<div class="mt-4">
+    <div class="row">
+
+
+        {{#each games}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-game-item">
+                <a href="/games/{{this.slug}}">
+                    <img class="card-img-top" src="{{this.image_thumbnail}}" alt="Card image cap">
+                </a>
+                <div class="card-body">
+                    <a href="/games/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.description_1}}</p>
+                    <a href="/games/{{this.slug}}" class="btn btn-primary">See more</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+
+
+    </div>
+</div>

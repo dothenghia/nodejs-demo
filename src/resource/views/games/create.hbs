@@ -1,0 +1,29 @@
+<div class="mt-4">
+    <h3>Tạo game mới</h3>
+
+    <form method="POST" action="/games/store">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="image_thumbnail">image_thumbnail</label>
+            <input type="text" class="form-control" id="image_thumbnail" name="image_thumbnail">
+        </div>
+        <div class="form-group">
+            <label for="description_1">description_1</label>
+            <input type="text" class="form-control" id="description_1" name="description_1">
+        </div>
+        <div class="form-group">
+            <label for="description_2">description_2</label>
+            <input type="text" class="form-control" id="description_2" name="description_2">
+        </div>
+        {{!-- <div class="form-group">
+            <label for="slug">slug</label>
+            <input type="text" class="form-control" id="slug" name="slug">
+        </div> --}}
+        
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+
+</div>

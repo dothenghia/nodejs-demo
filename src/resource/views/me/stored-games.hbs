@@ -1,0 +1,117 @@
+<div class="mt-4">
+    <h3>My games</h3>
+
+    <table class="table table-light mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    Name
+                    {{{sortable 'name' _sort}}}
+                    {{!-- <a href="?_sort&column=name&type=asc">
+                        <span class="oi oi-elevator"></span>
+                    </a> --}}
+                </th>
+                <th scope="col">
+                    Author
+                    {{{sortable 'author' _sort}}}
+                </th>
+                <th scope="col">
+                    Price
+                    {{{sortable 'price' _sort}}}
+                </th>
+                <th scope="col">
+                    Created Date
+                    {{{sortable 'createdAt' _sort}}}
+                </th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each games}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.updatedAt}}</td>
+                <td>
+                    <a href="/games/{{this._id}}/edit" class="btn btn-link">Edit</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-game-modal">Delete</a>
+                </td>
+            </tr>
+            
+
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    You haven't created any games yet
+                    <a href="/games/create">Create game</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-right">
+                    <a href="/me/trash/games" class="btn btn-primary" role="button" >Recycle bin</a>
+                </td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td colspan="6" class="text-right">
+                    <a href="/me/trash/games" class="btn btn-primary" role="button" >Recycle bin ({{deletedCount}})</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+{{!-- CONFIRM DELETE MODAL --}}
+<div class="modal fade" id="delete-game-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Delete this game ?
+        </div>
+        <div class="modal-footer">
+            <button id="btn-delete-game" type="button" class="btn btn-primary">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name="delete-game-form" method="POST"></form>
+
+
+
+
+{{!-- Delete game --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var gameId;
+        var deleteForm = document.forms['delete-game-form'];
+        var btnDeleteGame = document.getElementById('btn-delete-game');
+
+        //When dialog confirm clicked
+        $('#delete-game-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            gameId = button.data('id');
+        })
+
+        btnDeleteGame.onclick = function() {
+            deleteForm.action = '/games/' + gameId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+
+
+    })
+
+
+</script>

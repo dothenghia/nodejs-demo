@@ -1,0 +1,25 @@
+<div class="mt-4">
+    <h3>Edit game</h3>
+
+    <form class="mt-4" method="POST" action="/games/{{game._id}}?_method=PUT">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" value="{{game.name}}" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="image_thumbnail">image_thumbnail</label>
+            <input type="text" class="form-control" value="{{game.image_thumbnail}}" id="image_thumbnail" name="image_thumbnail">
+        </div>
+        <div class="form-group">
+            <label for="description_1">description_1</label>
+            <input type="text" class="form-control" value="{{game.description_1}}" id="description_1" name="description_1">
+        </div>
+        <div class="form-group">
+            <label for="description_2">description_2</label>
+            <input type="text" class="form-control" value="{{game.description_2}}" id="description_2" name="description_2">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+</div>
